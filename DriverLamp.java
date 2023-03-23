@@ -9,7 +9,7 @@ import java.awt.Color;
 public class DriverLamp
 {
     // instance variables - replace the example below with your own
-    Lamp l1 = new Lamp(100, 200, 50, Color.pink);
+    Lamp l1 = new Lamp(100, 200, 50, 50, Color.pink);
 
     /**
      * Constructor for objects of class DriverLamp
@@ -31,6 +31,12 @@ public class DriverLamp
                 l1.changeColor();
             } else {
                 UI.println("click on the lamp dummy");
+            }
+            
+            if (l1.onStand(x, y) == true) {
+                l1.changeColor();
+            } else {
+                UI.println("click on the stand dummy");
             }
         }
     }
