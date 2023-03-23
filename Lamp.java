@@ -103,12 +103,18 @@ public class Lamp
      */
     public boolean onBulb(double x, double y) {
         if(x >= this.getLeft() && x <= this.getRight() && y >= this.getTop() && y <= this.getBottom()) {
-            UI.println("on bulb B-)");
             return true;
         } else {
-            UI.println("no");
             return false; 
         }
     } 
     
+    /**
+     * erase a rectangle around the lamp bulb
+     */
+    public void eraseBulb() {
+        final int BUFFER = 1; 
+        
+        UI.eraseRect(lampLeft, lampTop, lampSize + BUFFER, lampBottom + BUFFER);
+    }
 }

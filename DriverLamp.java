@@ -21,6 +21,8 @@ public class DriverLamp
         UI.addButton("quit", UI::quit);
         
         l1.draw(); // draw a lamp
+        UI.sleep(500);
+        l1.eraseBulb();
         
         UI.setMouseListener(this::doMouse);
     }
