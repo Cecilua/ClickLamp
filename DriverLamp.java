@@ -17,6 +17,21 @@ public class DriverLamp
     public DriverLamp()
     {
         // initialise instance variables
-        l1.draw();
+        UI.initialise();
+        UI.addButton("quit", UI::quit);
+        
+        l1.draw(); // draw a lamp
+        
+        UI.setMouseListener(this::doMouse);
+    }
+    
+    public void doMouse(String action, double x, double y) {
+        if (action.equals("clicked")) {
+            if (l1.onBulb(x, y) == true) {
+                UI.println("u clicked the lamp");
+            } else {
+                UI.println("click on the lamp dummy");
+            }
+        }
     }
 }

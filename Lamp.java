@@ -98,6 +98,17 @@ public class Lamp
         UI.fillOval(lampLeft, lampTop, lampSize, lampSize); // draw lamp bulb
     } 
     
-    
+    /**
+     * return true if point (x, y) is on the lamp bulb
+     */
+    public boolean onBulb(double x, double y) {
+        if(x >= this.getLeft() && x <= this.getRight() && y >= this.getTop() && y <= this.getBottom()) {
+            UI.println("on bulb B-)");
+            return true;
+        } else {
+            UI.println("no");
+            return false; 
+        }
+    } 
     
 }
