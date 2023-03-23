@@ -117,4 +117,12 @@ public class Lamp
         
         UI.eraseRect(lampLeft, lampTop, lampSize + BUFFER, lampBottom + BUFFER);
     }
+    
+    public void changeColor() {
+        this.eraseBulb(); // erase the bulb
+        color = Color.getHSBColor((float)(Math.random()), 1.0f, 1.0f);
+        UI.setColor(color);
+        this.draw(); 
+    
+    }
 }

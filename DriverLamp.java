@@ -21,8 +21,6 @@ public class DriverLamp
         UI.addButton("quit", UI::quit);
         
         l1.draw(); // draw a lamp
-        UI.sleep(500);
-        l1.eraseBulb();
         
         UI.setMouseListener(this::doMouse);
     }
@@ -30,7 +28,7 @@ public class DriverLamp
     public void doMouse(String action, double x, double y) {
         if (action.equals("clicked")) {
             if (l1.onBulb(x, y) == true) {
-                UI.println("u clicked the lamp");
+                l1.changeColor();
             } else {
                 UI.println("click on the lamp dummy");
             }
