@@ -125,4 +125,10 @@ public class Lamp
         this.draw(); 
     
     }
+    
+    public void turnOff() {
+        this.eraseBulb(); // erase the bulb
+        UI.setColor(Color.black);
+        this.draw(); 
+    }
 }
