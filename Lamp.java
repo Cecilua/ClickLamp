@@ -10,19 +10,16 @@ import java.awt.Color;
  */
 public class Lamp
 {
-    // instance variables - replace the example below with your own
-    private double lampX;   // lamp x pos 
-    private double lampY;   // lamp y pos 
+    // instance variables
+    private double bulbX;   // bulb x pos 
+    private double bulbY;   // bulb y pos 
     
-    private int lampSize;   // set lamp size 
+    private int bulbSize;   // set lamp size 
     private double lampLeft;    // left of lamp
     private double lampTop;     // top of lamp
-    private double lampBottom;  // bottom of lamp
+    private double bulbBottom;  // bottom of bulb
     
     private Color color; 
-    
-
-    
     
     private final int STANDWIDTH = 10; // linewidth of stand
     private int standHeight; // height of stand
@@ -31,13 +28,7 @@ public class Lamp
     private double standLeft; // left of stand 
     private double standBottom; // bottom of stand
     
-    
-    //private double switchLeft; // switch left
-    //private double switchTop; // switch top 
-    //private double switchBottom; // switch bottom
-    
-    //private int switchHeight; // height of the switch
-    //private final int SWITCHWIDTH = 10; // width of the switch 
+    final int BUFFER = 1; 
     
     /**
      * Constructor for objects of class Lamp
@@ -45,19 +36,19 @@ public class Lamp
     public Lamp(double x, double y, int size, int sHeight, Color col)
     {
         // initialise instance variables
-        lampX = x;
-        lampY = y;
-        lampSize = size;
+        bulbX = x;
+        bulbY = y;
+        bulbSize = size;
         standHeight = sHeight;
         color = col;
         
-        // set top, left and bottom of lamp
+        // set top, left and bottom of bulb
         setTop();
         setLeft();
-        setBottom();
+        setBulbBottom();
         
         // set top, left and bottom of switch
-        standTop = lampBottom;
+        standTop = bulbBottom + BUFFER;
         setStandLeft();
         setStandBottom();
         
@@ -67,63 +58,63 @@ public class Lamp
      * set left 
      */
     public void setLeft() {
-        this.lampLeft = this.lampX - this.lampSize/2.0;
+        this.lampLeft = this.bulbX - this.bulbSize/2.0;
     } 
     
     /**
      * set top 
      */
     public void setTop() {
-        this.lampTop = this.lampY - this.lampSize/2.0;
+        this.lampTop = this.bulbY - this.bulbSize/2.0;
     }
     
     /**
      * set bottom
      */
-    public void setBottom() {
-        this.lampBottom = this.lampY + this.lampSize/2.0; 
+    public void setBulbBottom() {
+        this.bulbBottom = this.bulbY + this.bulbSize/2.0; 
     }
 
     /**
      * set left of stand 
      */
     public void setStandLeft(){
-        this.standLeft = this.lampX - STANDWIDTH/2;
+        this.standLeft = this.bulbX - STANDWIDTH/2;
     }
     
     /**
      * set bottom of stand 
      */
     public void setStandBottom(){
-        this.standBottom = (this.lampY + this.lampSize/2.0) + standHeight;
+        this.standBottom = (this.bulbY + this.bulbSize/2.0) + standHeight;
     }
     
     /**
      * getter method for bulb left 
      */
     public double getBulbLeft() {
-        return this.lampLeft = this.lampX - this.lampSize/2.0;
+        return this.lampLeft = this.bulbX - this.bulbSize/2.0;
     } 
     
     /**
      * getter method for bulb right 
      */
     public double getBulbRight() {
-         return this.lampLeft + this.lampSize;
+         return this.lampLeft + this.bulbSize;
     } 
     
     /**
      * getter method for bulb top 
      */
     public double getBulbTop() {
-        return this.lampTop = this.lampY - this.lampSize/2.0;
+        return this.lampTop = this.bulbY - this.bulbSize/2.0;
     }
     
     /**
      * getter method for bulb bottom
      */
     public double getBulbBottom() {
-        return this.lampBottom = this.lampY + this.lampSize/2.0; 
+        return this.bulbBottom = this.bulbY + this.bulbSize/2.0; 
     }
     
     /**
@@ -137,14 +128,14 @@ public class Lamp
      * getter method for stand left 
      */
     public double getStandLeft() {
-        return this.lampX - STANDWIDTH/2;
+        return this.bulbX - STANDWIDTH/2;
     } 
 
     /**
      * getter method for stand right 
      */
     public double getStandRight() {
-        return this.lampX + STANDWIDTH/2;
+        return this.bulbX + STANDWIDTH/2;
     } 
     
     /**
@@ -158,14 +149,14 @@ public class Lamp
      * draw the lamp 
      */
     public void draw() {
-        UI.setColor(this.color);
-        UI.fillOval(lampLeft, lampTop, lampSize, lampSize); // draw lamp bulb
-        
         // draw the stand
         UI.setColor(Color.gray); 
         UI.setLineWidth(STANDWIDTH);
-        UI.drawLine(lampX, standTop, lampX, standBottom); // draw stand 
+        UI.drawLine(bulbX, standTop, bulbX, standBottom); // draw stand 
         
+        // draw the bulb
+        UI.setColor(this.color);
+        UI.fillOval(lampLeft, lampTop, bulbSize, bulbSize); // draw lamp bulb
     } 
     
     /**
@@ -194,9 +185,7 @@ public class Lamp
      * erase a rectangle around the lamp bulb
      */
     public void eraseBulb() {
-        final int BUFFER = 1; 
-        
-        UI.eraseRect(lampLeft, lampTop, lampSize + BUFFER, lampBottom + BUFFER);
+        UI.eraseRect(lampLeft, lampTop, bulbSize + BUFFER, bulbBottom + BUFFER);
     }
     
     public void changeColor() {
@@ -204,12 +193,21 @@ public class Lamp
         color = Color.getHSBColor((float)(Math.random()), 1.0f, 1.0f);
         UI.setColor(color);
         this.draw(); 
-    
     }
     
     public void turnOff() {
         this.eraseBulb(); // erase the bulb
-        UI.setColor(Color.black);
+        this.color = Color.black;
         this.draw(); 
+    }
+    
+    public boolean isLampOn() {
+        if(color == Color.black) {
+            UI.println("lamp is off");
+            return false;
+        } else {
+            UI.println("lamp is on");
+            return true;
+        }
     }
 }

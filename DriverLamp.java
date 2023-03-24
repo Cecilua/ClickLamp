@@ -21,6 +21,9 @@ public class DriverLamp
         UI.addButton("quit", UI::quit);
         
         l1.draw(); // draw a lamp
+        l1.isLampOn();
+        l1.turnOff();
+        l1.isLampOn();
         
         UI.setMouseListener(this::doMouse);
     }
@@ -29,9 +32,7 @@ public class DriverLamp
         if (action.equals("clicked")) {
             if (l1.onBulb(x, y) == true) {
                 l1.changeColor();
-            } else {
-                UI.println("click on the lamp dummy");
-            }
+            } 
             
             if (l1.onStand(x, y) == true) {
                 l1.changeColor();
